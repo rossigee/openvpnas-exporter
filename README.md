@@ -20,19 +20,19 @@ Based on [openvpn-exporter](https://github.com/kumina/openvpn_exporter).
 ```
 # HELP openvpnas_server_connected_clients Number Of Connected Clients
 # TYPE openvpnas_server_connected_clients gauge
-openvpnas_server_connected_clients 0
+openvpnas_server_connected_clients 1
 # HELP openvpnas_subscription_current_client_connections Number of client connections currently being used from the OpenVPN subscription.
 # TYPE openvpnas_subscription_current_client_connections gauge
-openvpnas_subscription_current_client_connections 0
+openvpnas_subscription_current_client_connections 1
 # HELP openvpnas_subscription_fallback_client_connections Number of fallback connections in use on the OpenVPN subscription.
 # TYPE openvpnas_subscription_fallback_client_connections gauge
-openvpnas_subscription_fallback_client_connections 0
+openvpnas_subscription_fallback_client_connections 2
 # HELP openvpnas_subscription_maximum_client_connections Maximum number of client connections allowed by the OpenVPN subscription.
 # TYPE openvpnas_subscription_maximum_client_connections gauge
-openvpnas_subscription_maximum_client_connections 0
+openvpnas_subscription_maximum_client_connections 100
 # HELP openvpnas_subscription_status_update_time_seconds UNIX timestamp at which the OpenVPN subscription status was last updated.
 # TYPE openvpnas_subscription_status_update_time_seconds gauge
-openvpnas_subscription_status_update_time_seconds 0
+openvpnas_subscription_status_update_time_seconds 1.636795645e+09
 # HELP openvpnas_up Whether scraping OpenVPN's metrics was successful.
 # TYPE openvpnas_up gauge
 openvpnas_up 1
