@@ -31,8 +31,6 @@ type OpenVPNExporter struct {
 	openvpnSubscriptionFallbackClientConnections *prometheus.Desc
 	openvpnSubscriptionMaximumClientConnections  *prometheus.Desc
 	openvpnConnectedClientsDesc                  *prometheus.Desc
-	openvpnClientDescs                           map[string]*prometheus.Desc
-	openvpnServerHeaders                         map[string]OpenvpnServerHeader
 }
 
 func NewOpenVPNExporter(xmlrpcPath string) (*OpenVPNExporter, error) {

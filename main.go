@@ -31,7 +31,7 @@ func main() {
 
 	http.Handle(*metricsPath, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`
+		_ = w.Write([]byte(`
 			<html>
 			<head><title>OpenVPN AS Exporter</title></head>
 			<body>
