@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.1'
     - name: compile and release
       uses: ngs/go-release.action@v1.0.2
       env:
@@ -15,11 +18,15 @@ jobs:
         GOARCH: "386"
         GOOS: linux
         EXTRA_FILES: "LICENSE"
+        GO111MODULE: on
   release-linux-amd64:
     name: release linux/amd64
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.1'
     - name: compile and release
       uses: ngs/go-release.action@v1.0.2
       env:
@@ -27,11 +34,15 @@ jobs:
         GOARCH: amd64
         GOOS: linux
         EXTRA_FILES: "LICENSE"
+        GO111MODULE: on
   release-linux-arm:
     name: release linux/386
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.1'
     - name: compile and release
       uses: ngs/go-release.action@v1.0.2
       env:
@@ -39,11 +50,15 @@ jobs:
         GOARCH: "arm"
         GOOS: linux
         EXTRA_FILES: "LICENSE"
+        GO111MODULE: on
   release-linux-arm64:
     name: release linux/amd64
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.1'
     - name: compile and release
       uses: ngs/go-release.action@v1.0.2
       env:
@@ -51,11 +66,15 @@ jobs:
         GOARCH: arm64
         GOOS: linux
         EXTRA_FILES: "LICENSE"
+        GO111MODULE: on
   release-darwin-amd64:
     name: release darwin/amd64
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.1'
     - name: compile and release
       uses: ngs/go-release.action@v1.0.2
       env:
@@ -63,11 +82,15 @@ jobs:
         GOARCH: amd64
         GOOS: darwin
         EXTRA_FILES: "LICENSE"
+        GO111MODULE: on
   release-windows-386:
     name: release windows/386
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.1'
     - name: compile and release
       uses: ngs/go-release.action@v1.0.2
       env:
@@ -75,11 +98,15 @@ jobs:
         GOARCH: "386"
         GOOS: windows
         EXTRA_FILES: "LICENSE"
+        GO111MODULE: on
   release-windows-amd64:
     name: release windows/amd64
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.1'
     - name: compile and release
       uses: ngs/go-release.action@v1.0.2
       env:
@@ -87,3 +114,4 @@ jobs:
         GOARCH: amd64
         GOOS: windows
         EXTRA_FILES: "LICENSE"
+        GO111MODULE: on
