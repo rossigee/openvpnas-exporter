@@ -12,9 +12,9 @@ import (
 
 func main() {
 	var (
-		listenAddress     = flag.String("web.listen-address", ":9176", "Address to listen on for web interface and telemetry.")
-		metricsPath       = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
-		xmlrpcPath        = flag.String("openvpn-as.xmlrpc-path", "/usr/local/openvpn_as/etc/sock/sagent.localroot", "Path of XMLRPC unix domain socket to connect to.")
+		listenAddress = flag.String("web.listen-address", ":9176", "Address to listen on for web interface and telemetry.")
+		metricsPath   = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
+		xmlrpcPath    = flag.String("openvpn-as.xmlrpc-path", "/usr/local/openvpn_as/etc/sock/sagent.localroot", "Path of XMLRPC unix domain socket to connect to.")
 	)
 	flag.Parse()
 
@@ -31,7 +31,7 @@ func main() {
 
 	http.Handle(*metricsPath, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		_ = w.Write([]byte(`
+		 _, _ = w.Write([]byte(`
 			<html>
 			<head><title>OpenVPN AS Exporter</title></head>
 			<body>
