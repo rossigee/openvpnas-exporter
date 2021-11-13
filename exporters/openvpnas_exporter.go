@@ -67,14 +67,14 @@ func NewOpenVPNExporter(xmlrpcPath string) (*OpenVPNExporter, error) {
 		nil, nil)
 
 	return &OpenVPNExporter{
-		xmlrpcPath:                                  xmlrpcPath,
-		openvpnUpDesc:                               openvpnUpDesc,
-		openvpnStatusUpdateTimeDesc:                 openvpnStatusUpdateTimeDesc,
-		openvpnConnectedClientsDesc:                 openvpnConnectedClientsDesc,
-		openvpnSubscriptionStatusUpdateTimeDesc:     openvpnSubscriptionStatusUpdateTimeDesc,
-		openvpnSubscriptionCurrentClientConnections: openvpnSubscriptionCurrentClientConnectionsDesc,
+		xmlrpcPath:                                   xmlrpcPath,
+		openvpnUpDesc:                                openvpnUpDesc,
+		openvpnStatusUpdateTimeDesc:                  openvpnStatusUpdateTimeDesc,
+		openvpnConnectedClientsDesc:                  openvpnConnectedClientsDesc,
+		openvpnSubscriptionStatusUpdateTimeDesc:      openvpnSubscriptionStatusUpdateTimeDesc,
+		openvpnSubscriptionCurrentClientConnections:  openvpnSubscriptionCurrentClientConnectionsDesc,
 		openvpnSubscriptionFallbackClientConnections: openvpnSubscriptionFallbackClientConnectionsDesc,
-		openvpnSubscriptionMaximumClientConnections: openvpnSubscriptionMaximumClientConnectionsDesc,
+		openvpnSubscriptionMaximumClientConnections:  openvpnSubscriptionMaximumClientConnectionsDesc,
 	}, nil
 }
 
@@ -124,7 +124,7 @@ func (e *OpenVPNExporter) Collect(ch chan<- prometheus.Metric) {
 func (e *OpenVPNExporter) CollectVPNSummary(client xmlrpc.Client, ch chan<- prometheus.Metric) error {
 	result := &struct {
 		VPNSummary struct {
-			NClients int
+			NClients int `xml:"n_clients"`
 		}
 	}{}
 
@@ -145,24 +145,24 @@ func (e *OpenVPNExporter) CollectVPNSummary(client xmlrpc.Client, ch chan<- prom
 func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch chan<- prometheus.Metric) error {
 	result := &struct {
 		SubscriptionStatus struct {
-			AgentDisabled           struct{}
-			CCLimit                 int
-			CurrentCC               int
-			Error                   string
-			FallbackCC              int
-			GracePeriod             int
-			LastSuccessfulUpdate    int
-			LastSuccessfulUpdateAge int
-			MaxCC                   int
-			Name                    string
-			NextUpdate              int
-			NextUpdateIn            int
-			Notes                   []string
-			Overdraft               bool
-			Server                  string
-			State                   string
-			Type                    string
-			UpdatesFailed           int
+			AgentDisabled           bool     `xml:"agent_disabled"`
+			CcLimit                 int      `xml:"cc_limit"`
+			CurrentCc               int      `xml:"current_cc"`
+			Error                   string   `xml:"error"`
+			FallbackCc              int      `xml:"fallback_cc"`
+			GracePeriod             int      `xml:"grace_period"`
+			LastSuccessfulUpdate    int      `xml:"last_successful_update"`
+			LastSuccessfulUpdateAge int      `xml:"last_successful_update_age"`
+			MaxCc                   int      `xml:"max_cc"`
+			Name                    string   `xml:"name"`
+			NextUpdate              int      `xml:"next_update"`
+			NextUpdateIn            int      `xml:"next_update_in"`
+			Notes                   []string `xml:"notes"`
+			Overdraft               bool     `xml:"overdraft"`
+			Server                  string   `xml:"server"`
+			State                   string   `xml:"state"`
+			Type                    string   `xml:"type"`
+			UpdatesFailed           int      `xml:"updates_failed"`
 		}
 	}{}
 
@@ -180,17 +180,17 @@ func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch
 	ch <- prometheus.MustNewConstMetric(
 		e.openvpnSubscriptionCurrentClientConnections,
 		prometheus.GaugeValue,
-		float64(result.SubscriptionStatus.CurrentCC))
+		float64(result.SubscriptionStatus.CurrentCc))
 
 	ch <- prometheus.MustNewConstMetric(
 		e.openvpnSubscriptionMaximumClientConnections,
 		prometheus.GaugeValue,
-		float64(result.SubscriptionStatus.MaxCC))
+		float64(result.SubscriptionStatus.MaxCc))
 
 	ch <- prometheus.MustNewConstMetric(
 		e.openvpnSubscriptionFallbackClientConnections,
 		prometheus.GaugeValue,
-		float64(result.SubscriptionStatus.FallbackCC))
+		float64(result.SubscriptionStatus.FallbackCc))
 
 	return nil
 }
