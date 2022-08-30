@@ -1,0 +1,30 @@
+version: 2
+updates:
+
+  # Maintain dependencies for Golang
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    commit-message:
+      prefix: "go"
+    labels:
+      - "golang"
+      - "dependencies"
+    reviewers:
+      - "rossigee"
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    commit-message:
+      prefix: "gh-actions"
+    labels:
+      - "gh-actions"
+      - "dependencies"
+    reviewers:
+      - "rossigee"
