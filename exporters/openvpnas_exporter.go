@@ -146,6 +146,7 @@ func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch
 	result := &struct {
 		SubscriptionStatus struct {
 			AgentDisabled           bool     `xml:"agent_disabled"`
+			AgentId                 string   `xml:"agent_id"`
 			CcLimit                 int      `xml:"cc_limit"`
 			CurrentCc               int      `xml:"current_cc"`
 			Error                   string   `xml:"error"`
