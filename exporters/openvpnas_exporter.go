@@ -95,6 +95,8 @@ func (e *OpenVPNExporter) Collect(ch chan<- prometheus.Metric) {
 
 	opts := []xmlrpc.Option{xmlrpc.HttpClient(&httpc)}
 	client, _ := xmlrpc.NewClient("http://localhost/", opts...)
+	defer client.Close()
+
 
 	err := e.CollectVPNSummary(*client, ch)
 	if err != nil {
