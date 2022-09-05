@@ -1,3 +1,4 @@
+---
 # .github/workflows/release.yaml
 
 on: release
@@ -8,11 +9,11 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: '^1.16.3'
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2.5.2
+        uses: golangci/golangci-lint-action@v3.2.0
         with:
           version: latest
   releases-matrix:
@@ -33,22 +34,23 @@ jobs:
             goos: darwin
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout code
+        uses: actions/checkout@master
 
-      # - uses: actions/setup-go@v2
+      # - uses: actions/setup-go@v3
       #   with:
       #     go-version: '^1.16.3'
 
       - name: Set APP_VERSION env
         run: echo APP_VERSION=$(echo ${GITHUB_REF} | rev | cut -d'/' -f 1 | rev ) >> ${GITHUB_ENV}
 
-      - name: Environment Printer
-        uses: managedkaos/print-env@v1.0
+      # - name: Environment Printer
+      #   uses: managedkaos/print-env@v1.0
 
-      - uses: wangyoucao577/go-release-action@v1.16
+      - uses: wangyoucao577/go-release-action@v1.30
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
-          project_path: "${{ env.CMD_PATH }}"
+          # project_path: "${{ env.CMD_PATH }}"
           build_flags: -v
