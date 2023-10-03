@@ -31,6 +31,7 @@ type OpenVPNExporter struct {
 	openvpnSubscriptionFallbackClientConnections *prometheus.Desc
 	openvpnSubscriptionMaximumClientConnections  *prometheus.Desc
 	openvpnConnectedClientsDesc                  *prometheus.Desc
+	openvpnSubscriptionTotalClientConnections    *prometheus.Desc
 }
 
 func NewOpenVPNExporter(xmlrpcPath string) (*OpenVPNExporter, error) {
@@ -61,6 +62,10 @@ func NewOpenVPNExporter(xmlrpcPath string) (*OpenVPNExporter, error) {
 		prometheus.BuildFQName("openvpnas", "", "subscription_fallback_client_connections"),
 		"Number of fallback connections in use on the OpenVPN subscription.",
 		nil, nil)
+	openvpnSubscriptionTotalClientConnectionsDesc := prometheus.NewDesc(
+		prometheus.BuildFQName("openvpnas", "", "subscription_total_client_connections"),
+		"Number of total connections in use on the OpenVPN subscription.",
+		nil, nil)
 	openvpnSubscriptionMaximumClientConnectionsDesc := prometheus.NewDesc(
 		prometheus.BuildFQName("openvpnas", "", "subscription_maximum_client_connections"),
 		"Maximum number of client connections allowed by the OpenVPN subscription.",
@@ -75,6 +80,7 @@ func NewOpenVPNExporter(xmlrpcPath string) (*OpenVPNExporter, error) {
 		openvpnSubscriptionCurrentClientConnections:  openvpnSubscriptionCurrentClientConnectionsDesc,
 		openvpnSubscriptionFallbackClientConnections: openvpnSubscriptionFallbackClientConnectionsDesc,
 		openvpnSubscriptionMaximumClientConnections:  openvpnSubscriptionMaximumClientConnectionsDesc,
+		openvpnSubscriptionTotalClientConnections:    openvpnSubscriptionTotalClientConnectionsDesc,
 	}, nil
 }
 
@@ -96,7 +102,6 @@ func (e *OpenVPNExporter) Collect(ch chan<- prometheus.Metric) {
 	opts := []xmlrpc.Option{xmlrpc.HttpClient(&httpc)}
 	client, _ := xmlrpc.NewClient("http://localhost/", opts...)
 	defer client.Close()
-
 
 	err := e.CollectVPNSummary(*client, ch)
 	if err != nil {
@@ -123,10 +128,13 @@ func (e *OpenVPNExporter) Collect(ch chan<- prometheus.Metric) {
 		1.0)
 }
 
+// Get all fields by running: /usr/local/openvpn_as/scripts# OPENVPN_AS_DEBUG_XML=1 ./sacli VPNSummary
 func (e *OpenVPNExporter) CollectVPNSummary(client xmlrpc.Client, ch chan<- prometheus.Metric) error {
 	result := &struct {
 		VPNSummary struct {
-			NClients int `xml:"n_clients"`
+			NClients         int    `xml:"n_clients"`
+			OvpnDcoVer       string `xml:"ovpn_dco_ver"`
+			OvpnDcoAvailable bool   `xml:"ovpn_dco_available"`
 		}
 	}{}
 
@@ -144,6 +152,7 @@ func (e *OpenVPNExporter) CollectVPNSummary(client xmlrpc.Client, ch chan<- prom
 	return nil
 }
 
+// Get all fields by running: /usr/local/openvpn_as/scripts# OPENVPN_AS_DEBUG_XML=1 ./sacli SubscriptionStatus
 func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch chan<- prometheus.Metric) error {
 	result := &struct {
 		SubscriptionStatus struct {
@@ -164,6 +173,7 @@ func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch
 			Overdraft               bool     `xml:"overdraft"`
 			Server                  string   `xml:"server"`
 			State                   string   `xml:"state"`
+			TotalCc                 int      `xml:"total_cc"`
 			Type                    string   `xml:"type"`
 			UpdatesFailed           int      `xml:"updates_failed"`
 		}
@@ -194,6 +204,11 @@ func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch
 		e.openvpnSubscriptionFallbackClientConnections,
 		prometheus.GaugeValue,
 		float64(result.SubscriptionStatus.FallbackCc))
+
+	ch <- prometheus.MustNewConstMetric(
+		e.openvpnSubscriptionTotalClientConnections,
+		prometheus.GaugeValue,
+		float64(result.SubscriptionStatus.TotalCc))
 
 	return nil
 }
