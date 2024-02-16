@@ -47,7 +47,7 @@ jobs:
       # - name: Environment Printer
       #   uses: managedkaos/print-env@v1.0
 
-      - uses: wangyoucao577/go-release-action@v1.46
+      - uses: wangyoucao577/go-release-action@v1.48
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
