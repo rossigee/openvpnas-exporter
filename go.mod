@@ -4,5 +4,5 @@ go 1.16
 
 require (
 	alexejk.io/go-xmlrpc v0.5.2
-	github.com/prometheus/client_golang v1.19.0
+	github.com/prometheus/client_golang v1.19.1
 )
