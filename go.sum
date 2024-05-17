@@ -1,5 +1,5 @@
-alexejk.io/go-xmlrpc v0.5.2 h1:U1C7fdxRSvicXMcPQmgmu27ce6qWLnKRyCPZKQuqa1E=
-alexejk.io/go-xmlrpc v0.5.2/go.mod h1:zyrQOfw7lOE6HFTDjsiTLUaMqMGXraHJqjfzxfH9cHM=
+alexejk.io/go-xmlrpc v0.5.3 h1:7YxuXykECLg2O1eornJ1oQrJja1jerC9lVdKGcq02dE=
+alexejk.io/go-xmlrpc v0.5.3/go.mod h1:zyrQOfw7lOE6HFTDjsiTLUaMqMGXraHJqjfzxfH9cHM=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.38.0/go.mod h1:990N+gfupTy94rShfmMCWGDn0LpTmnzTp2qbd1dvSRU=
