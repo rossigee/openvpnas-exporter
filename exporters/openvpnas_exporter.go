@@ -158,6 +158,7 @@ func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch
 		SubscriptionStatus struct {
 			AgentDisabled           bool     `xml:"agent_disabled"`
 			AgentId                 string   `xml:"agent_id"`
+			BillingId               string   `xml:"billing_id"`
 			CcLimit                 int      `xml:"cc_limit"`
 			CurrentCc               int      `xml:"current_cc"`
 			Error                   string   `xml:"error"`
@@ -173,6 +174,7 @@ func (e *OpenVPNExporter) CollectSubscriptionStatistics(client xmlrpc.Client, ch
 			Overdraft               bool     `xml:"overdraft"`
 			Server                  string   `xml:"server"`
 			State                   string   `xml:"state"`
+			Subkey                  string   `xml:"subkey"`
 			TotalCc                 int      `xml:"total_cc"`
 			Type                    string   `xml:"type"`
 			UpdatesFailed           int      `xml:"updates_failed"`
