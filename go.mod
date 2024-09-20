@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	alexejk.io/go-xmlrpc v0.5.3
-	github.com/prometheus/client_golang v1.20.3
+	github.com/prometheus/client_golang v1.20.4
 )
 
 require (
