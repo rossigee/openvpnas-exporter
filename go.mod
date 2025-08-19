@@ -1,6 +1,6 @@
 module github.com/rossigee/openvpnas-exporter
 
-go 1.24
+go 1.25
 
 require (
 	alexejk.io/go-xmlrpc v0.6.0
