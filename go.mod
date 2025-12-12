@@ -3,7 +3,7 @@ module github.com/rossigee/openvpnas-exporter
 go 1.25.4
 
 require (
-	alexejk.io/go-xmlrpc v0.7.0
+	alexejk.io/go-xmlrpc v0.7.1
 	github.com/prometheus/client_golang v1.23.2
 )
 
